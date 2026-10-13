@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Mini Volt – shop phụ kiện điện thoại: ốp lưng, tai nghe, sạc, cáp. Giỏ hàng cập nhật tức thì bằng Vue.js 3.">
+  <meta name="author" content="Họ Tên – MSSV">
+  <title>Mini Volt – Phụ kiện điện thoại nhỏ gọn, dùng mỗi ngày</title>
+
+  <!-- Font: Bricolage Grotesque (tiêu đề) + Be Vietnam Pro (nội dung), đều có tiếng Việt -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Be+Vietnam+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- CSS Framework: Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['"Bricolage Grotesque"', 'system-ui', 'sans-serif'],
+            sans: ['"Be Vietnam Pro"', 'system-ui', 'sans-serif'],
+          },
+          colors: { volt: '#2f55ff', ink: '#12162b', lime: '#d9ff3f' },
+        },
+      },
+    };
+  </script>
+
+  <!-- CSS bổ sung -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-[#f2f5fc] font-sans text-ink antialiased">
+
+  <!-- Toàn bộ trang nằm trong #app để Vue quản lý {{ }}, v-for, v-if... -->
+  <div id="app" v-cloak>
+
+    <!-- ================= HEADER + NAVIGATION ================= -->
+    <header class="sticky top-0 z-40 border-b border-slate-200/80 bg-white/90 backdrop-blur">
+      <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-3">
+        <!-- Tên shop -->
+        <a href="#trang-chu" class="flex items-center gap-2.5">
+          <span class="grid h-10 w-10 place-items-center rounded-xl bg-volt text-lime">
+            <svg class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2 4 14h6l-1 8 9-12h-6z"/></svg>
+          </span>
+          <span class="font-display text-xl font-extrabold leading-none">Mini Volt
+            <span class="block text-[11px] font-semibold tracking-wide text-slate-500">Phụ kiện điện thoại</span>
+          </span>
+        </a>
+
+        <!-- Menu tĩnh (không cần Vue) -->
+        <nav class="hidden md:block" aria-label="Điều hướng chính">
+          <ul class="flex items-center gap-8 text-sm font-semibold">
+            <li><a class="hover:text-volt transition-colors" href="#trang-chu">Trang chủ</a></li>
+            <li><a class="hover:text-volt transition-colors" href="#san-pham">Sản phẩm</a></li>
+            <li><a class="hover:text-volt transition-colors" href="#khuyen-mai">Khuyến mãi</a></li>
+            <li><a class="hover:text-volt transition-colors" href="#lien-he">Liên hệ</a></li>
+          </ul>
+        </nav>
+
+        <div class="flex items-center gap-2">
+          <!-- Icon giỏ hàng: SỐ LƯỢNG do Vue quản lý bằng {{ cartCount }} -->
+          <a href="#gio-hang" class="relative flex items-center gap-2 rounded-full bg-ink px-4 py-2 text-sm font-semibold text-white transition hover:bg-volt" aria-label="Xem giỏ hàng">
+            <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 4h2l2.4 11.2a1 1 0 0 0 1 .8h8.8a1 1 0 0 0 1-.8L20 8H6.2"/><circle cx="9.5" cy="20" r="1.2"/><circle cx="17.5" cy="20" r="1.2"/></svg>
+            <span class="hidden sm:inline">Giỏ hàng</span>
+            <span class="badge-pop grid min-w-[1.5rem] place-items-center rounded-full bg-lime px-1.5 text-xs font-extrabold text-ink" :key="cartCount">{{ cartCount }}</span>
+          </a>
+
+          <!-- Nút mở menu trên di động (Vue: menuMo) -->
+          <button type="button" @click="menuMo = !menuMo" :aria-expanded="menuMo" aria-label="Mở menu"
+                  class="grid h-10 w-10 place-items-center rounded-full border border-slate-200 md:hidden">
+            <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24">
+              <path v-if="!menuMo" d="M4 7h16M4 12h16M4 17h16"/><path v-else d="M6 6l12 12M18 6 6 18"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Menu dọc cho di động -->
+      <nav v-show="menuMo" class="border-t border-slate-200 bg-white px-5 pb-4 md:hidden" aria-label="Menu di động">
+        <ul class="divide-y divide-slate-100 text-base font-semibold">
+          <li><a @click="menuMo = false" class="block py-3" href="#trang-chu">Trang chủ</a></li>
+          <li><a @click="menuMo = false" class="block py-3" href="#san-pham">Sản phẩm</a></li>
+          <li><a @click="menuMo = false" class="block py-3" href="#khuyen-mai">Khuyến mãi</a></li>
+          <li><a @click="menuMo = false" class="block py-3" href="#lien-he">Liên hệ</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <!-- ================= GIỚI THIỆU NGẮN ================= -->
+      <section id="trang-chu" class="mx-auto max-w-6xl px-5 pt-10 pb-6 md:pt-14">
+        <div class="relative overflow-hidden rounded-[2rem] bg-volt px-6 py-10 text-white md:px-12 md:py-14">
+          <div class="relative z-10 max-w-lg">
+            <p class="mb-3 inline-block rounded-full bg-white/15 px-4 py-1 text-sm font-medium">Giao nhanh trong 2 giờ nội thành</p>
+            <h1 class="font-display text-4xl font-extrabold leading-[1.05] md:text-6xl">Phụ kiện nhỏ, dùng cả ngày.</h1>
+            <p class="mt-4 max-w-md text-base leading-relaxed text-white/85">Ốp lưng, tai nghe, sạc và cáp chọn lọc cho điện thoại của bạn. Bấm thêm vào giỏ, số lượng và tổng tiền cập nhật ngay.</p>
+            <div class="mt-7 flex flex-wrap items-center gap-3">
+              <a href="#san-pham" class="rounded-full bg-lime px-6 py-3 font-bold text-ink transition hover:bg-white">Xem sản phẩm</a>
+              <span class="text-sm text-white/80">{{ products.length }} món · {{ cartCount }} trong giỏ</span>
+            </div>
+          </div>
+          <img src="https://th.bing.com/th/id/OIP.IEcDnmDCiqSfWq9vAIYlTAHaHa?w=190&h=190&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" alt="" class="hero-card absolute -right-6 top-6 hidden w-56 rotate-6 rounded-3xl shadow-2xl md:block lg:w-64" aria-hidden="true">
+          <img src="https://th.bing.com/th/id/OIF.Z5PylI6MQIPykVutrxBqMg?w=243&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" alt="" class="hero-card absolute right-40 -bottom-10 hidden w-44 -rotate-6 rounded-3xl shadow-2xl lg:block" aria-hidden="true">
+        </div>
+      </section>
+
+      <!-- ================= LƯỚI SẢN PHẨM + ASIDE GIỎ HÀNG ================= -->
+      <div class="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-5 pb-16 pt-6 lg:grid-cols-3">
+
+        <!-- ===== SECTION SẢN PHẨM ===== -->
+        <section id="san-pham" class="lg:col-span-2" aria-labelledby="sp-title">
+          <div class="mb-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div>
+              <h2 id="sp-title" class="font-display text-3xl font-extrabold md:text-4xl">Sản phẩm</h2>
+              <p class="mt-1 text-sm text-slate-500">Hiển thị {{ danhSachLoc.length }} / {{ products.length }} sản phẩm</p>
+            </div>
+
+            <!-- Ô tìm kiếm: v-model liên kết 2 chiều với biến tuKhoa -->
+            <div class="relative w-full sm:w-72">
+              <svg class="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+              <input v-model="tuKhoa" type="search" placeholder="Tìm ốp lưng, sạc, tai nghe…" aria-label="Tìm sản phẩm"
+                     class="w-full rounded-full border border-slate-200 bg-white py-3 pl-11 pr-4 text-sm placeholder:text-slate-400 transition hover:border-slate-300 focus:border-volt focus:outline-none focus:ring-2 focus:ring-volt/30">
+            </div>
+          </div>
+
+          <!-- v-for render danh sách đã lọc: mỗi sản phẩm là 1 ARTICLE -->
+          <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
+            <article v-for="sp in danhSachLoc" :key="sp.id"
+                     class="product-card group flex flex-col overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-slate-200/70 transition hover:-translate-y-1 hover:shadow-xl hover:ring-volt/30">
+              <div class="relative overflow-hidden">
+                <img :src="sp.anh" :alt="sp.ten" loading="lazy" class="aspect-square w-full object-cover transition duration-500 group-hover:scale-105">
+                <span v-if="sp.nhan" class="absolute left-3 top-3 rounded-full bg-ink px-3 py-1 text-xs font-bold text-lime">{{ sp.nhan }}</span>
+              </div>
+              <div class="flex flex-1 flex-col p-4">
+                <h3 class="font-display text-lg font-extrabold leading-snug">{{ sp.ten }}</h3>
+                <p class="mt-1 flex-1 text-sm leading-relaxed text-slate-500">{{ sp.moTa }}</p>
+                <div class="mt-4 flex items-center justify-between gap-2">
+                  <span class="font-display text-lg font-extrabold text-volt">{{ dinhDangTien(sp.gia) }}</span>
+                  <!-- @click gọi method themVaoGio(sanPham) -->
+                  <button type="button" @click="themVaoGio(sp)" aria-label="Thêm vào giỏ"
+                          class="flex items-center gap-1.5 rounded-full bg-volt px-4 py-2 text-sm font-semibold text-white transition hover:bg-ink focus:outline-none focus:ring-2 focus:ring-volt focus:ring-offset-2 active:scale-95">
+                    <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+                    Thêm
+                  </button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <!-- Không có kết quả tìm kiếm -->
+          <div v-if="danhSachLoc.length === 0" class="rounded-3xl border border-dashed border-slate-300 bg-white px-6 py-14 text-center">
+            <p class="font-display text-xl font-extrabold">Không có sản phẩm nào khớp “{{ tuKhoa }}”</p>
+            <p class="mt-1 text-sm text-slate-500">Thử từ khoá ngắn hơn, ví dụ “ốp”, “sạc” hoặc “tai nghe”.</p>
+            <button type="button" @click="tuKhoa = ''" class="mt-5 rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-volt">Xoá từ khoá</button>
+          </div>
+        </section>
+
+        <!-- ===== ASIDE GIỎ HÀNG ===== -->
+        <aside id="gio-hang" class="self-start rounded-3xl bg-white p-5 shadow-sm ring-1 ring-slate-200/70 lg:sticky lg:top-24" aria-labelledby="cart-title">
+          <div class="flex items-center justify-between">
+            <h2 id="cart-title" class="font-display text-2xl font-extrabold">Giỏ hàng của bạn</h2>
+            <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-bold text-slate-600">{{ cartCount }} món</span>
+          </div>
+
+          <!-- Giỏ trống: v-if -->
+          <div v-if="cart.length === 0" class="mt-5 rounded-2xl bg-slate-50 px-4 py-10 text-center">
+            <svg class="mx-auto h-10 w-10 text-slate-300" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 4h2l2.4 11.2a1 1 0 0 0 1 .8h8.8a1 1 0 0 0 1-.8L20 8H6.2"/><circle cx="9.5" cy="20" r="1.2"/><circle cx="17.5" cy="20" r="1.2"/></svg>
+            <p class="mt-3 font-display text-lg font-extrabold">Giỏ hàng trống</p>
+            <p class="mt-1 text-sm text-slate-500">Bấm “Thêm” ở sản phẩm bạn thích.</p>
+          </div>
+
+          <!-- Có hàng: v-else + v-for liệt kê sản phẩm trong giỏ -->
+          <div v-else>
+            <transition-group name="item" tag="ul" class="mt-5 space-y-3">
+              <li v-for="(item, index) in cart" :key="item.maDong" class="flex items-center gap-3 rounded-2xl bg-slate-50 p-2.5">
+                <img :src="item.anh" :alt="item.ten" class="h-14 w-14 shrink-0 rounded-xl object-cover">
+                <div class="min-w-0 flex-1">
+                  <p class="truncate text-sm font-semibold">{{ item.ten }}</p>
+                  <p class="text-sm font-bold text-volt">{{ dinhDangTien(item.gia) }}</p>
+                </div>
+                <!-- @click gọi xoaKhoiGio(index) -->
+                <button type="button" @click="xoaKhoiGio(index)" aria-label="Xoá khỏi giỏ"
+                        class="grid h-8 w-8 shrink-0 place-items-center rounded-full text-slate-400 transition hover:bg-red-50 hover:text-red-500 focus:outline-none focus:ring-2 focus:ring-red-300">
+                  <svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>
+                </button>
+              </li>
+            </transition-group>
+
+            <div class="mt-5 flex items-center justify-between border-t border-dashed border-slate-300 pt-4">
+              <span class="text-sm font-semibold text-slate-500">Tổng tiền</span>
+              <!-- computed tongTien -->
+              <span class="font-display text-2xl font-extrabold">{{ dinhDangTien(tongTien) }}</span>
+            </div>
+            <button type="button" @click="thanhToan"
+                    class="mt-4 w-full rounded-full bg-volt py-3 font-bold text-white shadow-lg shadow-volt/30 transition hover:bg-ink focus:outline-none focus:ring-2 focus:ring-volt focus:ring-offset-2 active:scale-[.98]">
+              Thanh toán
+            </button>
+            <button type="button" @click="xoaTatCa" class="mt-2 w-full rounded-full py-2 text-sm font-semibold text-slate-500 transition hover:text-red-500">Xoá hết giỏ hàng</button>
+          </div>
+        </aside>
+      </div>
+
+      <!-- ================= SECTION KHUYẾN MÃI HÔM NAY (tĩnh) ================= -->
+      <section id="khuyen-mai" class="mx-auto max-w-6xl px-5 pb-20" aria-labelledby="km-title">
+        <h2 id="km-title" class="font-display text-3xl font-extrabold md:text-4xl">Khuyến mãi hôm nay</h2>
+        <div class="mt-6 grid grid-cols-1 gap-5 md:grid-cols-2">
+          <article class="relative overflow-hidden rounded-3xl bg-ink p-7 text-white">
+            <p class="font-display text-6xl font-extrabold leading-none text-lime">-20%</p>
+            <h3 class="mt-3 font-display text-2xl font-extrabold">Tất cả ốp lưng</h3>
+            <p class="mt-2 max-w-xs text-sm leading-relaxed text-white/75">Áp dụng đến hết 23:59 hôm nay cho mọi mẫu ốp lưng. Nhập mã <strong class="rounded bg-white/15 px-2 py-0.5 font-semibold text-lime">OP20</strong> khi thanh toán.</p>
+            <img src="https://down-vn.img.susercontent.com/file/sg-11134201-825al-mfwcg0e330gd56.webp" alt="" aria-hidden="true" class="absolute -bottom-6 -right-4 w-40 rotate-12 rounded-3xl opacity-90">
+          </article>
+          <article class="relative overflow-hidden rounded-3xl bg-lime p-7 text-ink">
+            <p class="font-display text-6xl font-extrabold leading-none">0đ</p>
+            <h3 class="mt-3 font-display text-2xl font-extrabold">Miễn phí giao hàng</h3>
+            <p class="mt-2 max-w-xs text-sm leading-relaxed text-ink/75">Cho đơn từ 300.000đ trong nội thành. Đặt trước 16:00 để nhận trong ngày.</p>
+            <img src="https://th.bing.com/th/id/OIP.v0u43oE8vOLZyIzbylKyTwHaHa?w=195&h=195&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" alt="" aria-hidden="true" class="absolute -bottom-6 -right-4 w-40 -rotate-6 rounded-3xl opacity-90">
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <!-- ================= FOOTER ================= -->
+    <footer id="lien-he" class="bg-ink text-slate-300">
+      <div class="mx-auto grid max-w-6xl grid-cols-1 gap-10 px-5 py-14 sm:grid-cols-2 lg:grid-cols-4">
+        <div>
+          <p class="font-display text-2xl font-extrabold text-white">Mini Volt</p>
+          <p class="mt-3 text-sm leading-relaxed text-slate-400">Phụ kiện điện thoại chọn lọc, bảo hành 6 tháng, đổi trả trong 7 ngày.</p>
+        </div>
+        <div>
+          <h3 class="font-display text-lg font-extrabold text-white">Liên hệ</h3>
+          <ul class="mt-3 space-y-2 text-sm text-slate-400">
+            <li>Xã Tuy Phước Tây, Gia Lai</li>
+            <li><a class="transition-colors hover:text-lime" href="tel:113">113</a></li>
+            <li><a class="transition-colors hover:text-lime" href="mailto:dtin302@gmail.com">dtin302@gmail.com</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-display text-lg font-extrabold text-white">Hỗ trợ</h3>
+          <ul class="mt-3 space-y-2 text-sm text-slate-400">
+            <li><a class="transition-colors hover:text-lime" href="#">Chính sách đổi trả</a></li>
+            <li><a class="transition-colors hover:text-lime" href="#">Giao hàng</a></li>
+            <li><a class="transition-colors hover:text-lime" href="#">Bảo hành</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-display text-lg font-extrabold text-white">Mạng xã hội</h3>
+          <ul class="mt-3 flex gap-3">
+            <li><a href="#" aria-label="Facebook" class="grid h-10 w-10 place-items-center rounded-full bg-white/10 transition hover:bg-lime hover:text-ink"><svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.8 1.4-3.8 3.9v2.3H7.9v3h2.6V21h3z"/></svg></a></li>
+            <li><a href="#" aria-label="Instagram" class="grid h-10 w-10 place-items-center rounded-full bg-white/10 transition hover:bg-lime hover:text-ink"><svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg></a></li>
+            <li><a href="#" aria-label="YouTube" class="grid h-10 w-10 place-items-center rounded-full bg-white/10 transition hover:bg-lime hover:text-ink"><svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2C2 8.8 2 12 2 12s0 3.2.4 4.8a2.5 2.5 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8c.4-1.6.4-4.8.4-4.8s0-3.2-.4-4.8zM10 15V9l5.2 3z"/></svg></a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-white/10">
+        <p class="mx-auto max-w-6xl px-5 py-5 text-center text-xs text-slate-500">© {{ namHienTai }} Mini Volt. Bài tập 5 – Giỏ hàng động với Vue.js 3 (CDN).</p>
+      </div>
+    </footer>
+
+    <!-- Thông báo nhỏ khi thêm/xoá (Vue: thongBao) -->
+    <transition name="toast">
+      <div v-if="thongBao" role="status" aria-live="polite"
+           class="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 rounded-full bg-ink px-5 py-3 text-sm font-semibold text-white shadow-2xl">
+        <span class="mr-2 inline-block h-2 w-2 rounded-full bg-lime"></span>{{ thongBao }}
+      </div>
+    </transition>
+
+  </div>
+  <!-- /#app -->
+
+  <!-- Thứ tự bắt buộc: Vue 3 CDN TRƯỚC app.js để app.js gọi được Vue.createApp -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

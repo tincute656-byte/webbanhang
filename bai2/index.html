@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="vi" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Bếp Bánh Homemade – tiệm bánh ngọt thủ công, nướng mới mỗi sáng. Đặt bánh theo yêu cầu cho sinh nhật, tiệc nhỏ và những ngày muốn ngọt ngào hơn.">
+  <meta name="author" content="Họ Tên – MSSV">
+  <title>Bếp Bánh Homemade – Bánh ngọt thủ công, nướng mới mỗi sáng</title>
+
+  <!-- Google Fonts: Fraunces (tiêu đề) + Be Vietnam Pro (nội dung) – đều hỗ trợ tiếng Việt -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,700;1,9..144,500&family=Be+Vietnam+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS qua Play CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            display: ['Fraunces', 'Georgia', 'serif'],
+            sans: ['"Be Vietnam Pro"', 'system-ui', 'sans-serif'],
+          },
+          colors: { crust: '#8a4b1f' },
+        },
+      },
+    };
+  </script>
+
+  <!-- CSS bổ sung cho phần Tailwind chưa hỗ trợ sẵn -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-[#fbf3e4] font-sans text-stone-700 antialiased">
+
+  <!-- ================= HEADER + NAVIGATION ================= -->
+  <header id="site-header" class="sticky top-0 z-50 bg-[#fbf3e4]/90 backdrop-blur border-b border-amber-200/70 transition-shadow">
+    <nav class="mx-auto flex max-w-6xl items-center justify-between px-6 py-4" aria-label="Điều hướng chính">
+      <!-- Logo chữ bên trái -->
+      <a href="#trang-chu" class="font-display text-2xl font-bold leading-none text-crust">
+        Bếp Bánh
+        <span class="block text-[11px] font-medium italic tracking-wide text-amber-700">Homemade</span>
+      </a>
+
+      <!-- Menu ngang: ẩn trên di động, hiện từ md trở lên -->
+      <ul class="hidden md:flex items-center gap-8 text-sm font-medium">
+        <li><a class="nav-link hover:text-amber-700 transition-colors" href="#trang-chu">Trang chủ</a></li>
+        <li><a class="nav-link hover:text-amber-700 transition-colors" href="#menu-banh">Bánh ngọt</a></li>
+        <li><a class="nav-link hover:text-amber-700 transition-colors" href="#cau-chuyen">Câu chuyện</a></li>
+        <li><a class="nav-link hover:text-amber-700 transition-colors" href="#dat-banh">Đặt bánh</a></li>
+        <li><a class="nav-link hover:text-amber-700 transition-colors" href="#lien-he">Liên hệ</a></li>
+      </ul>
+
+      <!-- Icon hamburger: chỉ hiện trên di động (md:hidden) -->
+      <button id="menu-toggle" type="button" aria-label="Mở menu" aria-expanded="false" aria-controls="mobile-menu"
+              class="md:hidden rounded-lg p-2 text-crust hover:bg-amber-100 focus:outline-none focus:ring-2 focus:ring-amber-500">
+        <svg id="icon-open" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        <svg id="icon-close" class="hidden h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </nav>
+
+    <!-- Menu dọc trên di động: mặc định hidden, JS sẽ toggle -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-amber-200/70 bg-[#fbf3e4] px-6 pb-5 pt-2">
+      <ul class="flex flex-col divide-y divide-amber-200/70 text-base font-medium">
+        <li><a class="mobile-link block py-3 hover:text-amber-700" href="#trang-chu">Trang chủ</a></li>
+        <li><a class="mobile-link block py-3 hover:text-amber-700" href="#menu-banh">Bánh ngọt</a></li>
+        <li><a class="mobile-link block py-3 hover:text-amber-700" href="#cau-chuyen">Câu chuyện</a></li>
+        <li><a class="mobile-link block py-3 hover:text-amber-700" href="#dat-banh">Đặt bánh</a></li>
+        <li><a class="mobile-link block py-3 hover:text-amber-700" href="#lien-he">Liên hệ</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <!-- ================= SECTION HERO ================= -->
+    <section id="trang-chu" class="mx-auto max-w-6xl px-6 pt-10 pb-14 md:pt-16 md:pb-20">
+      <div class="flex flex-col md:flex-row items-center gap-10 md:gap-14">
+        <!-- Bên trái: tiêu đề + mô tả + CTA -->
+        <div class="md:w-1/2">
+          <p class="mb-4 inline-block rounded-full bg-amber-100 px-4 py-1 text-sm font-medium text-amber-800">Nướng mới mỗi sáng, từ 6 giờ</p>
+          <h1 class="font-display text-4xl md:text-6xl font-bold leading-[1.1] text-crust">
+            Hương vị thủ công chân thành
+          </h1>
+          <p class="mt-5 max-w-md text-lg leading-relaxed text-stone-600">
+            Từng chiếc bánh ngọt được làm bằng bơ thật, trứng tươi và trái cây theo mùa – để mỗi lát bánh đều có hơi ấm của căn bếp nhà.
+          </p>
+          <div class="mt-8 flex flex-wrap items-center gap-4">
+            <a href="#dat-banh" class="bg-amber-600 hover:bg-amber-700 text-white px-6 py-3 rounded-full font-semibold shadow-lg shadow-amber-600/30 transition">Đặt bánh ngay</a>
+            <a href="#menu-banh" class="rounded-full px-5 py-3 font-semibold text-crust underline decoration-amber-400 decoration-2 underline-offset-4 hover:text-amber-700">Xem thực đơn</a>
+          </div>
+        </div>
+
+        <!-- Bên phải: ảnh bánh ngọt -->
+        <div class="md:w-1/2 w-full">
+          <div class="hero-float relative">
+            <div class="absolute -inset-3 rounded-[2.5rem] bg-amber-200/60 rotate-2" aria-hidden="true"></div>
+            <img src="https://th.bing.com/th/id/OIP.8vaVDJAhtGM31r-ohI2UsQHaEo?w=316&h=197&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" alt="Bánh kem dâu tươi xếp ba tầng trên khay gỗ"
+                 class="relative aspect-square w-full rounded-[2rem] object-cover shadow-2xl shadow-amber-900/20">
+            <div class="absolute -bottom-5 -left-3 rounded-2xl bg-white px-4 py-3 shadow-xl">
+              <p class="text-xs text-stone-500">Bán chạy nhất tuần này</p>
+              <p class="font-display text-lg font-bold text-crust">Bánh kem dâu tươi</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= LƯỚI NỘI DUNG CHÍNH + ASIDE ================= -->
+    <div class="mx-auto max-w-6xl px-6 pb-20">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+
+        <!-- Nội dung chính: chiếm 2/3 -->
+        <div class="lg:col-span-2 space-y-20">
+
+          <!--
+            GHI CHÚ SO SÁNH: Tailwind (utility-first) vs Bootstrap (component-based)
+            - Ở Bài 1 (Bootstrap), mình dùng sẵn component như .card, .btn, .navbar: gọi tên class là có giao diện hoàn chỉnh,
+              nhưng kết quả dễ "na ná" nhau vì ai cũng dùng chung một bộ component.
+            - Ở Bài 2 (Tailwind), không có sẵn .card: mỗi thẻ bánh bên dưới được "ráp" từ các utility nhỏ như rounded-2xl,
+              shadow-lg, overflow-hidden, bg-white, hover:shadow-xl, transition. Viết dài hơn nhưng kiểm soát từng chi tiết,
+              giao diện độc đáo, không bị "nhìn quen" như Bootstrap.
+          -->
+          <!-- ================= SECTION MENU BÁNH ================= -->
+          <section id="menu-banh" aria-labelledby="menu-title">
+            <div class="mb-8 flex items-end justify-between gap-4">
+              <h2 id="menu-title" class="font-display text-3xl md:text-4xl font-bold text-crust">Menu bánh</h2>
+              <p class="hidden sm:block max-w-xs text-right text-sm text-stone-500">Bánh nhỏ, ngọt vừa, làm trong ngày. Hết là hết.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+
+              <article class="group overflow-hidden rounded-2xl bg-white shadow-lg transition hover:shadow-xl hover:-translate-y-1">
+                <div class="overflow-hidden">
+                  <img src="https://th.bing.com/th/id/OIP.IFOlP7qN47Y6UudGY_o4yAHaHa?w=150&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" alt="Bánh kem dâu tươi" class="aspect-[4/3] w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy">
+                </div>
+                <div class="p-5">
+                  <h3 class="font-display text-lg font-bold text-stone-800">Bánh kem dâu tươi</h3>
+                  <p class="mt-1 text-sm text-stone-500">Cốt bông lan mềm, kem tươi và dâu Đà Lạt.</p>
+                  <div class="mt-4 flex items-center justify-between">
+                    <span class="font-semibold text-amber-700">320.000đ</span>
+                    <a href="#dat-banh" class="rounded-full bg-amber-50 px-4 py-1.5 text-sm font-semibold text-amber-800 transition hover:bg-amber-600 hover:text-white">Đặt bánh</a>
+                  </div>
+                </div>
+              </article>
+
+              <article class="group overflow-hidden rounded-2xl bg-white shadow-lg transition hover:shadow-xl hover:-translate-y-1">
+                <div class="overflow-hidden">
+                  <img src="https://th.bing.com/th/id/OIP.F5GPACzG5Vh7KYGa7xM_LgHaFf?w=233&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" alt="Bánh tart trái cây" class="aspect-[4/3] w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy">
+                </div>
+                <div class="p-5">
+                  <h3 class="font-display text-lg font-bold text-stone-800">Bánh tart trái cây</h3>
+                  <p class="mt-1 text-sm text-stone-500">Vỏ bơ giòn, custard vani và trái cây theo mùa.</p>
+                  <div class="mt-4 flex items-center justify-between">
+                    <span class="font-semibold text-amber-700">250.000đ</span>
+                    <a href="#dat-banh" class="rounded-full bg-amber-50 px-4 py-1.5 text-sm font-semibold text-amber-800 transition hover:bg-amber-600 hover:text-white">Đặt bánh</a>
+                  </div>
+                </div>
+              </article>
+
+              <article class="group overflow-hidden rounded-2xl bg-white shadow-lg transition hover:shadow-xl hover:-translate-y-1">
+                <div class="overflow-hidden">
+                  <img src="https://th.bing.com/th/id/OIP.yd5UCOw4MXHevezMc3EDbQHaFj?w=223&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" alt="Cookies trà xanh socola chip" class="aspect-[4/3] w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy">
+                </div>
+                <div class="p-5">
+                  <h3 class="font-display text-lg font-bold text-stone-800">Cookies trà xanh</h3>
+                  <p class="mt-1 text-sm text-stone-500">Matcha Nhật, socola đen, giòn rìa mềm lõi.</p>
+                  <div class="mt-4 flex items-center justify-between">
+                    <span class="font-semibold text-amber-700">85.000đ <span class="text-xs font-normal text-stone-400">/ hộp 4</span></span>
+                    <a href="#dat-banh" class="rounded-full bg-amber-50 px-4 py-1.5 text-sm font-semibold text-amber-800 transition hover:bg-amber-600 hover:text-white">Đặt bánh</a>
+                  </div>
+                </div>
+              </article>
+
+              <article class="group overflow-hidden rounded-2xl bg-white shadow-lg transition hover:shadow-xl hover:-translate-y-1">
+                <div class="overflow-hidden">
+                  <img src="https://th.bing.com/th/id/OIP.i2rYHUsBAc_PJlxS2sDo_gHaEK?w=333&h=187&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" alt="Bánh bông lan trứng muối chà bông" class="aspect-[4/3] w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy">
+                </div>
+                <div class="p-5">
+                  <h3 class="font-display text-lg font-bold text-stone-800">Bông lan trứng muối</h3>
+                  <p class="mt-1 text-sm text-stone-500">Mặn ngọt hài hòa, chà bông đậm vị, sốt phô mai béo.</p>
+                  <div class="mt-4 flex items-center justify-between">
+                    <span class="font-semibold text-amber-700">65.000đ</span>
+                    <a href="#dat-banh" class="rounded-full bg-amber-50 px-4 py-1.5 text-sm font-semibold text-amber-800 transition hover:bg-amber-600 hover:text-white">Đặt bánh</a>
+                  </div>
+                </div>
+              </article>
+
+              <article class="group overflow-hidden rounded-2xl bg-white shadow-lg transition hover:shadow-xl hover:-translate-y-1">
+                <div class="overflow-hidden">
+                  <img src="https://th.bing.com/th/id/OIP.cDzgUaxjlcZWjX9PIJ0c9gHaHa?w=166&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" alt="Lát cheesecake sốt dâu" class="aspect-[4/3] w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy">
+                </div>
+                <div class="p-5">
+                  <h3 class="font-display text-lg font-bold text-stone-800">Cheesecake sốt dâu</h3>
+                  <p class="mt-1 text-sm text-stone-500">Nướng cách thủy, mịn như kem, chua nhẹ cuối vị.</p>
+                  <div class="mt-4 flex items-center justify-between">
+                    <span class="font-semibold text-amber-700">55.000đ <span class="text-xs font-normal text-stone-400">/ miếng</span></span>
+                    <a href="#dat-banh" class="rounded-full bg-amber-50 px-4 py-1.5 text-sm font-semibold text-amber-800 transition hover:bg-amber-600 hover:text-white">Đặt bánh</a>
+                  </div>
+                </div>
+              </article>
+
+              <article class="group overflow-hidden rounded-2xl bg-white shadow-lg transition hover:shadow-xl hover:-translate-y-1">
+                <div class="overflow-hidden">
+                  <img src="data:image/webp;base64,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" alt="Bánh socola phủ ganache và cherry" class="aspect-[4/3] w-full object-cover transition duration-500 group-hover:scale-105" loading="lazy">
+                </div>
+                <div class="p-5">
+                  <h3 class="font-display text-lg font-bold text-stone-800">Bánh socola ganache</h3>
+                  <p class="mt-1 text-sm text-stone-500">Socola đen 70%, ganache chảy và một quả cherry.</p>
+                  <div class="mt-4 flex items-center justify-between">
+                    <span class="font-semibold text-amber-700">290.000đ</span>
+                    <a href="#dat-banh" class="rounded-full bg-amber-50 px-4 py-1.5 text-sm font-semibold text-amber-800 transition hover:bg-amber-600 hover:text-white">Đặt bánh</a>
+                  </div>
+                </div>
+              </article>
+
+            </div>
+          </section>
+
+          <!-- ================= SECTION CÂU CHUYỆN THƯƠNG HIỆU ================= -->
+          <section id="cau-chuyen" aria-labelledby="story-title">
+            <h2 id="story-title" class="font-display text-3xl md:text-4xl font-bold text-crust">Câu chuyện thương hiệu</h2>
+
+            <!-- Flow content: ảnh bo tròn float cạnh đoạn văn -->
+            <div class="mt-6 flow-root">
+              <img src="data:image/webp;base64,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" alt="Cookies trà xanh vừa ra lò"
+                   class="mb-4 w-full rounded-3xl shadow-lg sm:float-left sm:mr-8 sm:w-60 md:w-64">
+              <div class="space-y-4 text-base leading-8 text-stone-600">
+                <p>
+                  Bếp Bánh bắt đầu từ một chiếc lò nướng nhỏ trong căn bếp của bà ngoại. Mỗi sáng cuối tuần, cả nhà
+                  <strong class="text-amber-700 font-semibold">quây quần quanh khay bánh vừa ra lò</strong>, và mùi bơ thơm lan khắp con hẻm.
+                </p>
+                <p>
+                  Chúng mình giữ nguyên thói quen ấy: <strong class="text-amber-700 font-semibold">không chất bảo quản</strong>,
+                  không bột nở dư, chỉ bơ thật, trứng tươi và <em class="text-amber-700 font-semibold">trái cây chín đúng mùa</em>.
+                  Bánh làm ít, bán trong ngày, vì chúng mình tin rằng
+                  <em class="text-amber-700 font-semibold">một chiếc bánh ngon là chiếc bánh còn ấm</em>.
+                </p>
+                <p>
+                  Hôm nay, tiệm vẫn nhỏ như ngày đầu. Chỉ khác là có thêm nhiều người bạn ghé qua, mang bánh về cho sinh nhật,
+                  buổi họp mặt hay đơn giản là một chiều mưa cần chút ngọt.
+                </p>
+              </div>
+            </div>
+          </section>
+
+        </div>
+
+        <!-- ================= ASIDE: ĐẶT BÁNH THEO YÊU CẦU ================= -->
+        <aside id="dat-banh" class="lg:col-span-1 self-start rounded-xl border border-amber-200 bg-amber-50 p-6 lg:sticky lg:top-24" aria-labelledby="order-title">
+          <h2 id="order-title" class="font-display text-2xl font-bold text-crust">Đặt bánh theo yêu cầu</h2>
+          <p class="mt-2 text-sm leading-relaxed text-stone-600">Kể cho mình nghe bạn muốn chiếc bánh thế nào. Tiệm sẽ gọi lại trong vòng 2 giờ để chốt vị, kích thước và ngày nhận.</p>
+
+          <!-- ================= FORM ĐẶT BÁNH ================= -->
+          <form id="order-form" class="mt-6 space-y-4" novalidate>
+            <div>
+              <label for="ten" class="mb-1 block text-sm font-medium text-stone-700">Tên của bạn</label>
+              <input id="ten" name="ten" type="text" required autocomplete="name" placeholder="Nguyễn Thu Hà"
+                     class="w-full rounded-lg border border-amber-200 bg-white px-4 py-2.5 text-sm placeholder:text-stone-400 transition focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 hover:border-amber-400">
+            </div>
+            <div>
+              <label for="sdt" class="mb-1 block text-sm font-medium text-stone-700">Số điện thoại</label>
+              <input id="sdt" name="sdt" type="tel" required autocomplete="tel" inputmode="tel" placeholder="0901 234 567"
+                     class="w-full rounded-lg border border-amber-200 bg-white px-4 py-2.5 text-sm placeholder:text-stone-400 transition focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 hover:border-amber-400">
+            </div>
+            <div>
+              <label for="loai" class="mb-1 block text-sm font-medium text-stone-700">Loại bánh</label>
+              <input id="loai" name="loai" type="text" list="danh-sach-banh" placeholder="Bánh kem dâu, tart, cookies…"
+                     class="w-full rounded-lg border border-amber-200 bg-white px-4 py-2.5 text-sm placeholder:text-stone-400 transition focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 hover:border-amber-400">
+              <datalist id="danh-sach-banh">
+                <option value="Bánh kem dâu tươi"></option>
+                <option value="Bánh tart trái cây"></option>
+                <option value="Cookies trà xanh"></option>
+                <option value="Bông lan trứng muối"></option>
+                <option value="Cheesecake sốt dâu"></option>
+                <option value="Bánh socola ganache"></option>
+              </datalist>
+            </div>
+            <div>
+              <label for="ghichu" class="mb-1 block text-sm font-medium text-stone-700">Ghi chú</label>
+              <textarea id="ghichu" name="ghichu" rows="4" placeholder="Ngày nhận, dòng chữ trên bánh, dị ứng cần lưu ý…"
+                        class="w-full resize-none rounded-lg border border-amber-200 bg-white px-4 py-2.5 text-sm placeholder:text-stone-400 transition focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 hover:border-amber-400"></textarea>
+            </div>
+
+            <button type="submit"
+                    class="w-full rounded-full bg-amber-600 px-6 py-3 font-semibold text-white shadow-md shadow-amber-600/30 transition hover:bg-amber-700 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 focus:ring-offset-amber-50">
+              Gửi yêu cầu
+            </button>
+
+            <!-- Thông báo kết quả (JS điền nội dung) -->
+            <p id="form-message" role="status" aria-live="polite" class="hidden rounded-lg px-4 py-3 text-sm"></p>
+          </form>
+        </aside>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer id="lien-he" class="bg-stone-900 text-stone-200">
+    <div class="mx-auto grid max-w-6xl grid-cols-1 gap-10 px-6 py-14 md:grid-cols-4">
+      <div>
+        <p class="font-display text-2xl font-bold text-amber-400">Bếp Bánh</p>
+        <p class="mt-3 text-sm leading-relaxed text-stone-400">Tiệm bánh ngọt thủ công. Nướng bằng bơ thật, bán trong ngày, gói bằng sự tử tế.</p>
+      </div>
+
+      <div>
+        <h3 class="font-display text-lg font-bold text-white">Liên hệ</h3>
+        <ul class="mt-3 space-y-2 text-sm text-stone-400">
+          <li>123 Đường Bánh, Q.1, TP. HCM</li>
+          <li><a class="hover:text-amber-400 transition-colors" href="tel:0901234567">0901 234 567</a></li>
+          <li><a class="hover:text-amber-400 transition-colors" href="mailto:hello@bepbanh.vn">hello@bepbanh.vn</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="font-display text-lg font-bold text-white">Giờ mở cửa</h3>
+        <ul class="mt-3 space-y-2 text-sm text-stone-400">
+          <li class="flex justify-between gap-4"><span>Thứ 2 – Thứ 6</span><span>7:00 – 20:00</span></li>
+          <li class="flex justify-between gap-4"><span>Thứ 7</span><span>6:30 – 21:00</span></li>
+          <li class="flex justify-between gap-4"><span>Chủ nhật</span><span>6:30 – 18:00</span></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="font-display text-lg font-bold text-white">Mạng xã hội</h3>
+        <ul class="mt-3 flex gap-3">
+          <li>
+            <a href="#" aria-label="Facebook" class="grid h-10 w-10 place-items-center rounded-full bg-stone-800 transition hover:bg-amber-600 hover:text-white">
+              <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M13.5 21v-7.5h2.6l.4-3h-3V8.6c0-.9.3-1.5 1.5-1.5h1.6V4.4c-.3 0-1.2-.1-2.3-.1-2.3 0-3.8 1.4-3.8 3.9v2.3H7.9v3h2.6V21h3z"/></svg>
+            </a>
+          </li>
+          <li>
+            <a href="#" aria-label="Instagram" class="grid h-10 w-10 place-items-center rounded-full bg-stone-800 transition hover:bg-amber-600 hover:text-white">
+              <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"/></svg>
+            </a>
+          </li>
+          <li>
+            <a href="#" aria-label="TikTok" class="grid h-10 w-10 place-items-center rounded-full bg-stone-800 transition hover:bg-amber-600 hover:text-white">
+              <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24"><path d="M16.5 3c.3 2.3 1.7 3.8 4 4v3c-1.5 0-2.9-.4-4-1.2V15a6 6 0 1 1-6-6c.3 0 .7 0 1 .1v3.2a2.9 2.9 0 1 0 1.9 2.7V3h3.1z"/></svg>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Bản quyền -->
+    <div class="border-t border-stone-800">
+      <p class="mx-auto max-w-6xl px-6 py-5 text-center text-xs text-stone-500">
+        © <span id="year">2026</span> Bếp Bánh Homemade. Bài tập 2 – Landing page với Tailwind CSS.
+      </p>
+    </div>
+  </footer>
+
+  <!-- JavaScript thuần: toggle menu mobile + hiệu ứng nhỏ -->
+  <script src="b2.js"></script>
+</body>
+</html>
